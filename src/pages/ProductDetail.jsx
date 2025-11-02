@@ -1,15 +1,23 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import "./ProductDetail.css";
 import { useParams } from "react-router";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Header from "../components/Header";
 import { useQuery } from "@tanstack/react-query";
+import { useContext } from "react";
+import { CartCountContext } from "../context/CartCountContext.js";
+import { ProductNameContext } from "../context/ProductNameContext.js";
 
-const fetchProduct = (productId) => {
+const fetchProduct = (productId, setProductName) => {
   return fetch(
     "https://itx-frontend-test.onrender.com/api/product/" + productId
   )
     .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      setProductName(data?.model || "");
+      return data;
+    })
     .catch((error) => {
       console.error("Error fetching product:", error);
       return null;
@@ -17,6 +25,9 @@ const fetchProduct = (productId) => {
 };
 
 function ProductDetail() {
+  const { setCartCount } = useContext(CartCountContext);
+  const { setProductName } = useContext(ProductNameContext);
+
   const { productId } = useParams();
   const {
     isLoading,
@@ -24,7 +35,7 @@ function ProductDetail() {
     data: product,
   } = useQuery({
     queryKey: ["product", productId],
-    queryFn: () => fetchProduct(productId),
+    queryFn: () => fetchProduct(productId, setProductName),
   });
 
   const colors = product?.options?.colors || [];
@@ -53,6 +64,7 @@ function ProductDetail() {
         return response.json();
       })
       .then((data) => {
+        setCartCount(data?.count);
         localStorage.setItem("cartCount", JSON.stringify(data?.count));
       })
       .catch((error) => {
@@ -66,7 +78,6 @@ function ProductDetail() {
 
   return (
     <>
-      <Header itemName={product.model} />
       <div className="product-detail-container">
         <div className="product-detail-image">
           <img src={product.imgUrl} alt={product.model} />

@@ -1,7 +1,12 @@
 import React from "react";
 import { Link } from "react-router";
 import "./breadcrumbs.css";
-function Breadcrumbs({ itemName }) {
+import { useContext } from "react";
+import { ProductNameContext } from "../context/ProductNameContext.js";
+
+function Breadcrumbs() {
+  const { productName: itemName } = useContext(ProductNameContext);
+
   return (
     <nav>
       <ul>
