@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import SearchBar from "../components/SearchBar";
 import { useQuery } from "@tanstack/react-query";
+import ProductList from "../components/ProductList.jsx";
 
 const fetchProducts = () => {
   const response = fetch(
