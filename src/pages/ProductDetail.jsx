@@ -1,21 +1,18 @@
 import React, { use, useState } from "react";
 import "./ProductDetail.css";
 import { useParams } from "react-router";
-import Breadcrumbs from "../components/Breadcrumbs";
-import Header from "../components/Header";
 import { useQuery } from "@tanstack/react-query";
 import { useContext } from "react";
 import { CartCountContext } from "../context/CartCountContext.js";
 import { ProductNameContext } from "../context/ProductNameContext.js";
+import { useEffect } from "react";
 
-const fetchProduct = (productId, setProductName) => {
+const fetchProduct = (productId) => {
   return fetch(
     "https://itx-frontend-test.onrender.com/api/product/" + productId
   )
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
-      setProductName(data?.model || "");
       return data;
     })
     .catch((error) => {
@@ -35,14 +32,22 @@ function ProductDetail() {
     data: product,
   } = useQuery({
     queryKey: ["product", productId],
-    queryFn: () => fetchProduct(productId, setProductName),
+    queryFn: () => fetchProduct(productId),
   });
 
   const colors = product?.options?.colors || [];
   const storages = product?.options?.storages || [];
 
-  const [selectedColor, setSelectedColor] = useState(colors[0]?.code);
-  const [selectedStorage, setSelectedStorage] = useState(storages[0]?.code);
+  const [selectedColor, setSelectedColor] = useState();
+  const [selectedStorage, setSelectedStorage] = useState();
+
+  useEffect(() => {
+    if (product) {
+      setSelectedColor(product.options?.colors[0]?.code);
+      setSelectedStorage(product.options?.storages[0]?.code);
+      setProductName(product?.model || "");
+    }
+  }, [product]);
 
   const handleAddToCart = () => {
     const payload = {

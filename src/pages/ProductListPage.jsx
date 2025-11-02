@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import SearchBar from "../components/SearchBar";
 import { useQuery } from "@tanstack/react-query";
 import ProductList from "../components/ProductList.jsx";
+import { ProductNameContext } from "../context/ProductNameContext.js";
 
 const fetchProducts = () => {
   const response = fetch(
@@ -20,8 +21,13 @@ function ProductListPage() {
     queryKey: ["products"],
     queryFn: fetchProducts,
   });
-
   const [filteredProducts, setFilteredProducts] = useState();
+  const { setProductName } = useContext(ProductNameContext);
+
+  useEffect(() => {
+    console.log("Clearing product name on ProductListPage mount");
+    setProductName("");
+  }, [setProductName]);
 
   const handleFilter = (filtered) => {
     setFilteredProducts(filtered);
