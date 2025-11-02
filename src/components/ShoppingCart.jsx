@@ -1,4 +1,3 @@
-import React from "react";
 import "./ShoppingCart.css";
 import cartIcon from "/src/assets/shopping-cart.svg";
 import { useContext } from "react";

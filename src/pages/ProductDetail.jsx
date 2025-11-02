@@ -1,4 +1,4 @@
-import React, { use, useState } from "react";
+import { useState } from "react";
 import "./ProductDetail.css";
 import { useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
