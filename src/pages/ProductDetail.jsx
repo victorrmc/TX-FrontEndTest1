@@ -41,8 +41,8 @@ function ProductDetail() {
   const colors = product?.options?.colors || [];
   const storages = product?.options?.storages || [];
 
-  const [selectedColor, setSelectedColor] = useState();
-  const [selectedStorage, setSelectedStorage] = useState();
+  const [selectedColor, setSelectedColor] = useState(colors[0]?.code);
+  const [selectedStorage, setSelectedStorage] = useState(storages[0]?.code);
 
   const handleAddToCart = () => {
     const payload = {
