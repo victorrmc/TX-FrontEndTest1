@@ -1,0 +1,40 @@
+nav {
+    margin: 16px 0;
+}
+
+ul {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: #555;
+}
+
+li:not(:last-child)::after {
+    content: ">";
+    margin: 0 8px;
+    color: #aaa;
+}
+
+a {
+    text-decoration: none;
+    color: #1976d2;
+    transition: color 0.2s;
+}
+
+a:hover {
+    color: #1565c0;
+}
+
+p {
+    margin: 0;
+    font-weight: 500;
+    color: #333;
+}

@@ -1,0 +1,13 @@
+.shopping-cart {
+    display: flex;
+    align-items: center;
+}
+
+.shopping-cart p {
+    margin: 0 8px 0 0;
+    font-weight: bold;
+}
+
+.shopping-cart img {
+    width: 30px;
+}
