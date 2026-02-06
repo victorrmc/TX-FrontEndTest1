@@ -1,4 +1,3 @@
-import React from "react";
 import { Link } from "react-router";
 import "./breadcrumbs.css";
 import { useContext } from "react";
@@ -8,7 +7,7 @@ function Breadcrumbs() {
   const { productName: itemName } = useContext(ProductNameContext);
 
   return (
-    <nav>
+    <nav aria-label="Breadcrumb">
       <ul>
         <li key={"Products"}>
           <Link to={"/"}>Products</Link>

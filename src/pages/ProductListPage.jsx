@@ -1,31 +1,15 @@
-import React, { useEffect, useState, useContext } from "react";
+import { useEffect, useState, useContext } from "react";
 import SearchBar from "../components/SearchBar";
-import { useQuery } from "@tanstack/react-query";
 import ProductList from "../components/ProductList.jsx";
 import { ProductNameContext } from "../context/ProductNameContext.js";
+import { useProducts } from "../hooks/useProducts";
 
-const fetchProducts = () => {
-  const response = fetch(
-    "https://itx-frontend-test.onrender.com/api/product"
-  ).then((res) => {
-    if (!res.ok) {
-      throw new Error("Network response was not ok");
-    }
-    return res.json();
-  });
-
-  return response;
-};
 function ProductListPage() {
-  const { isLoading, error, data } = useQuery({
-    queryKey: ["products"],
-    queryFn: fetchProducts,
-  });
+  const { isLoading, error, data } = useProducts();
   const [filteredProducts, setFilteredProducts] = useState();
   const { setProductName } = useContext(ProductNameContext);
 
   useEffect(() => {
-    console.log("Clearing product name on ProductListPage mount");
     setProductName("");
   }, [setProductName]);
 

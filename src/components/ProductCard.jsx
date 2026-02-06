@@ -1,13 +1,13 @@
 import "./ProductCard.css";
 import { Link } from "react-router";
 
-function ProductCard(item) {
+function ProductCard({ id, model, price, brand, imgUrl }) {
   return (
-    <Link to={`/product/${item.id}`} className="product-card">
-      <h2>{item.model}</h2>
-      <p>Price: ${item.price}</p>
-      <p>{item.brand}</p>
-      <img src={item.imgUrl} alt={item.model} width="200" />
+    <Link to={`/product/${id}`} className="product-card">
+      <h2>{model}</h2>
+      <p>Price: ${price}</p>
+      <p>{brand}</p>
+      <img src={imgUrl} alt={model} width="200" />
     </Link>
   );
 }

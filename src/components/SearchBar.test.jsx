@@ -9,7 +9,7 @@ const mockProducts = [
 ];
 
 describe("SearchBar", () => {
-  test("filtra productos por marca", async () => {
+  test("filters products by brand", async () => {
     const user = userEvent.setup();
     const onFilterMock = vi.fn();
     render(<SearchBar products={mockProducts} onFilter={onFilterMock} />);
@@ -23,10 +23,11 @@ describe("SearchBar", () => {
     ]);
   });
 
-  test("filtra productos por modelo", async () => {
+  test("filters products by model", async () => {
     const user = userEvent.setup();
     const onFilterMock = vi.fn();
     render(<SearchBar products={mockProducts} onFilter={onFilterMock} />);
+
     const input = screen.getByPlaceholderText("Buscar productos...");
     await user.type(input, "Liquid Z6 Plus");
 
@@ -35,12 +36,12 @@ describe("SearchBar", () => {
     ]);
   });
 
-  test("devuelve un array vacío si no hay coincidencias", async () => {
+  test("returns empty array when no matches", async () => {
     const user = userEvent.setup();
     const onFilterMock = vi.fn();
     render(<SearchBar products={mockProducts} onFilter={onFilterMock} />);
-    const input = screen.getByPlaceholderText("Buscar productos...");
 
+    const input = screen.getByPlaceholderText("Buscar productos...");
     await user.type(input, "Samsung");
 
     expect(onFilterMock).toHaveBeenLastCalledWith([]);
